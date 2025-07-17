@@ -1,7 +1,26 @@
-import type { NextConfig } from "next";
+/** @type {import('next').NextConfig} */
+const nextConfig = {
+  async rewrites() {
+    return [
+      {
+        source: '/api/:path*',
+        destination: 'https://suitmedia-backend.suitdev.com/api/:path*',
+      },
+    ];
+  },
+  images: {
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'suitmedia-backend.suitdev.com',
+      },
+      {
+        protocol: 'https',
+        hostname: 'assets.suitdev.com',
+      },
 
-const nextConfig: NextConfig = {
-  /* config options here */
+    ],
+  },
 };
 
 export default nextConfig;
