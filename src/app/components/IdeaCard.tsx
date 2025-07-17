@@ -1,5 +1,3 @@
-// src/components/IdeaCard.tsx
-
 import Image from 'next/image';
 
 interface Idea {
@@ -19,15 +17,16 @@ export default function IdeaCard({ idea }: { idea: Idea }) {
   });
 
   return (
-    <div className="bg-white rounded-xl shadow-md overflow-hidden flex flex-col transform hover:-translate-y-2 transition-transform duration-300">
+    <div className="bg-white rounded-xl shadow-md overflow-hidden flex flex-col transform hover:scale-105 transition-transform duration-300">
       <div className="relative w-full aspect-video">
         <Image
           src={imageUrl}
           alt={idea.title}
-          fill
+          layout="fill"
+          objectFit="cover"
           unoptimized
           sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-          className="object-cover" // Opacity sudah tidak perlu dipaksa lagi
+          className="object-cover" 
         />
       </div>
       <div className="p-4 flex flex-col flex-grow">
