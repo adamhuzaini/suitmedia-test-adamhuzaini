@@ -50,7 +50,7 @@ export default function Header() {
             priority
           />
         </Link>
-        <ul className="flex items-center gap-8 text-white font-medium">
+        <ul className="flex items-center gap-8 text-white font-medium hover: ">
           <li><Link href="/work">Work</Link></li>
           <li><Link href="/about">About</Link></li>
           <li><Link href="/services">Services</Link></li>

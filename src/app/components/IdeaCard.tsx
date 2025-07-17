@@ -11,7 +11,7 @@ interface Idea {
 
 export default function IdeaCard({ idea }: { idea: Idea }) {
   const imageUrl = idea.small_image?.[0]?.url || '/placeholder.jpg';
-  
+
   const formattedDate = new Date(idea.published_at).toLocaleDateString('id-ID', {
     day: '2-digit',
     month: 'long',
@@ -19,11 +19,7 @@ export default function IdeaCard({ idea }: { idea: Idea }) {
   });
 
   return (
-    // TAMBAHKAN STYLE OPACITY DI DIV PALING LUAR INI
-    <div 
-      className="bg-white rounded-xl shadow-md overflow-hidden flex flex-col transform hover:-translate-y-2 transition-transform duration-300"
-      style={{ opacity: 1 }} // <-- INI BAGIAN YANG TERLEWAT
-    >
+    <div className="bg-white rounded-xl shadow-md overflow-hidden flex flex-col transform hover:-translate-y-2 transition-transform duration-300">
       <div className="relative w-full aspect-video">
         <Image
           src={imageUrl}
@@ -31,8 +27,7 @@ export default function IdeaCard({ idea }: { idea: Idea }) {
           fill
           unoptimized
           sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-          className="object-cover"
-          style={{ opacity: 1 }}
+          className="object-cover" // Opacity sudah tidak perlu dipaksa lagi
         />
       </div>
       <div className="p-4 flex flex-col flex-grow">

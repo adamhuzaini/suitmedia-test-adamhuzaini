@@ -100,9 +100,9 @@ function IdeaListContent() {
               onChange={(e) => handleFilterChange('perPage', e.target.value)}
               className="border border-gray-300 rounded-md p-2 text-sm"
             >
-              <option value="10">10</option>
-              <option value="20">20</option>
-              <option value="50">50</option>
+              <option  className = "text-slate-950" value="10">10</option>
+              <option className = "text-slate-950" value="20">20</option>
+              <option className = "text-slate-950" value="50">50</option>
             </select>
           </div>
           <div className="flex items-center gap-2">
@@ -113,8 +113,8 @@ function IdeaListContent() {
               onChange={(e) => handleFilterChange('sort', e.target.value)}
               className="border border-gray-300 rounded-md p-2 text-sm"
             >
-              <option value="-published_at">Newest</option>
-              <option value="published_at">Oldest</option>
+              <option className = "text-slate-950" value="-published_at">Newest</option>
+              <option className = "text-slate-950" value="published_at">Oldest</option>
             </select>
           </div>
         </div>
