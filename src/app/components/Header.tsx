@@ -28,9 +28,18 @@ export default function Header() {
 
   const isActive = (path: string) => pathname === path;
 
+  const menuItems = [
+    { name: 'Work', path: '/work' },
+    { name: 'About', path: '/about' },
+    { name: 'Services', path: '/services' },
+    { name: 'Ideas', path: '/ideas' },
+    { name: 'Careers', path: '/careers' },
+    { name: 'Contact', path: '/contact' },
+  ];
+
   return (
     <header
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+      className={`fixed top-0 left-0 right-0 z-50 transition-transform duration-300 ${
         isVisible ? 'translate-y-0' : '-translate-y-full'
       } ${
         lastScrollY > 50
@@ -39,26 +48,31 @@ export default function Header() {
       }`}
     >
       <nav className="container mx-auto px-6 py-3 flex justify-between items-center">
-        {/* PERBAIKAN: Logo dibungkus Link dan menggunakan width & height */}
         <Link href="/">
           <Image
             src="/Logo.png"
             alt="Logo"
-            width={150}      // Ganti dengan lebar ASLI gambar Anda untuk rasio
-            height={50}      // Ganti dengan tinggi ASLI gambar Anda untuk rasio
-            className="w-36 h-auto" // Atur LEBAR TAMPIL di sini, tinggi akan otomatis proporsional
+            width={150}
+            height={50}
+            className="w-36 h-auto"
             priority
           />
         </Link>
-        <ul className="flex items-center gap-8 text-white font-medium hover: ">
-          <li><Link href="/work">Work</Link></li>
-          <li><Link href="/about">About</Link></li>
-          <li><Link href="/services">Services</Link></li>
-          <li className={isActive('/ideas') ? 'font-bold border-b-2' : ''}>
-            <Link href="/ideas">Ideas</Link>
-          </li>
-          <li><Link href="/careers">Careers</Link></li>
-          <li><Link href="/contact">Contact</Link></li>
+        <ul className="flex items-center gap-6 text-white font-medium">
+          {menuItems.map((item) => (
+            <li key={item.path}>
+              <Link
+                href={item.path}
+                className={`transition-all duration-200 pb-1 ${
+                  isActive(item.path)
+                    ? 'border-b-2 border-white font-semibold'
+                    : 'hover:border-b-2 hover:border-white/70'
+                }`}
+              >
+                {item.name}
+              </Link>
+            </li>
+          ))}
         </ul>
       </nav>
     </header>

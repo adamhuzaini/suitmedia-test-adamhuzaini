@@ -6,32 +6,39 @@ import Image from 'next/image';
 
 export default function Banner() {
   const [offsetY, setOffsetY] = useState(0);
-  const handleScroll = () => setOffsetY(window.scrollY);
 
   useEffect(() => {
-    window.addEventListener('scroll', handleScroll);
+    const handleScroll = () => setOffsetY(window.scrollY);
+    window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
   return (
     <div
-      className="relative h-[50vh] w-full overflow-hidden"
-      style={{ clipPath: 'polygon(0 0, 100% 0, 100% 85%, 0 100%)' }}
+      className="relative h-[60vh] w-full overflow-hidden"
+      style={{
+        clipPath: 'polygon(0 0, 100% 0, 100% 85%, 0 100%)',
+        WebkitClipPath: 'polygon(0 0, 100% 0, 100% 85%, 0 100%)', // untuk Safari
+      }}
     >
-      <div className="absolute inset-0 z-0">
-  <Image
-    src="/b.jpg" 
-    alt="Banner"
-    fill
-    priority
-    className="object-cover"
-    style={{ transform: `translateY(${offsetY * 0.5}px)` }}
-  />
-  {/* UBAH BARIS DI BAWAH INI */}
-  <div className="absolute inset-0 bg-black/40"></div>
-</div>
+      {/* Background Image dengan Parallax */}
       <div
-        className="relative z-10 flex flex-col justify-center items-center h-full text-white text-center"
+        className="absolute inset-0 z-0 will-change-transform"
+        style={{ transform: `translateY(${offsetY * 0.5}px)` }}
+      >
+        <Image
+          src="/b.jpg" // ganti dengan dynamic CMS path nanti
+          alt="Banner"
+          fill
+          priority
+          className="object-cover"
+        />
+        <div className="absolute inset-0 bg-black/40" />
+      </div>
+
+      {/* Teks Parallax */}
+      <div
+        className="relative z-10 flex flex-col justify-center items-center h-full text-white text-center will-change-transform"
         style={{ transform: `translateY(${offsetY * 0.3}px)` }}
       >
         <h1 className="text-5xl font-bold">Ideas</h1>

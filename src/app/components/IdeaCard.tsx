@@ -1,4 +1,5 @@
 import Image from 'next/image';
+import { useState } from 'react';
 
 interface Idea {
   id: number;
@@ -8,12 +9,25 @@ interface Idea {
 }
 
 export default function IdeaCard({ idea }: { idea: Idea }) {
-  const imageUrl = idea.small_image?.[0]?.url || '/placeholder.jpg';
+  const [imageError, setImageError] = useState(false);
+
+  // Ambil URL gambar pertama
+  let imageUrl = idea.small_image?.[0]?.url;
+
+  // Jika URL ada tapi tidak pakai http/https, tambahkan domain backend
+  if (imageUrl && !imageUrl.startsWith('http')) {
+    imageUrl = `https://suitmedia-backend.suitdev.com${imageUrl}`;
+  }
+
+  // Jika error atau tidak ada gambar, pakai placeholder
+  if (!imageUrl || imageError) {
+    imageUrl = '/placeholder.jpg';
+  }
 
   const formattedDate = new Date(idea.published_at).toLocaleDateString('id-ID', {
     day: '2-digit',
     month: 'long',
-    year: 'numeric'
+    year: 'numeric',
   });
 
   return (
@@ -22,18 +36,17 @@ export default function IdeaCard({ idea }: { idea: Idea }) {
         <Image
           src={imageUrl}
           alt={idea.title}
-          layout="fill"
-          objectFit="cover"
+          fill
           unoptimized
           sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-          className="object-cover" 
+          className="object-cover"
+          onError={() => setImageError(true)}
         />
       </div>
+
       <div className="p-4 flex flex-col flex-grow">
         <p className="text-xs text-gray-500 mb-2">{formattedDate}</p>
-        <h3 className="font-semibold text-gray-800 line-clamp-3">
-          {idea.title}
-        </h3>
+        <h3 className="font-semibold text-gray-800 line-clamp-3">{idea.title}</h3>
       </div>
     </div>
   );
